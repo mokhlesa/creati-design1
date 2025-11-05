@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+       // ..._create_order_items_table.php
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->decimal('price', 8, 2);
             $table->timestamps();
         });
     }

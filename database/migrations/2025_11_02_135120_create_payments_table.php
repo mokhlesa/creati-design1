@@ -11,11 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+       
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->string('transaction_id')->unique();
+            $table->string('payment_method', 100);
+            $table->decimal('amount', 10, 2);
+            $table->string('status', 50);
             $table->timestamps();
         });
-    }
+}
 
     /**
      * Reverse the migrations.

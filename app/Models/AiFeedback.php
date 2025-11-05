@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+// app/Models/AiFeedback.php
+// app/Models/AiFeedback.php
 class AiFeedback extends Model
 {
     use HasFactory;
