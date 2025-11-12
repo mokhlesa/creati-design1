@@ -76,3 +76,11 @@ This will run the PestPHP tests.
 *   **Views:** Frontend views are written using Blade templates and can be found in `resources/views`. The application uses a layout-based approach for structuring views (e.g., `app.blade.php`, `guest.blade.php`).
 *   **Frontend Assets:** CSS and JavaScript are managed via Vite and are located in `resources/css` and `resources/js`, respectively.
 *   **Styling:** The project uses Tailwind CSS for styling. Configuration can be found in `tailwind.config.js`.
+
+## Recent Changes
+
+*   **Admin Panel Views:** Completed the creation of all necessary Blade views for the admin panel. This includes `index`, `create`, `edit`, and `show` pages for all major resources: Users, Roles, Categories, Posts, Courses, Lessons, Orders, Consultations, and Student Showcases.
+*   **Bug Fixes:**
+    *   Resolved a "Class not found" error by correcting the content of the `app/Models/Course.php` file, which previously contained the wrong model definition.
+    *   Ran `composer dump-autoload` to ensure the application's class map was updated after the model fix.
+*   **Validation:** Added a uniqueness constraint to the `title` field in the `CourseController` to prevent duplicate course entries.

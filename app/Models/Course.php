@@ -2,14 +2,43 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory; // <-- السطر المضاف
 
-// app/Models/Consultation.php
-class Consultation extends Model
+class Course extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'image_url', 'status'];
-    public function feedback() { return $this->hasOne(AiFeedback::class); }
-    public function user() { return $this->belongsTo(User::class); }
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'description',
+        'instructor_id',
+        'price',
+        'published_at',
+    ];
+
+    /**
+     * Get the instructor that owns the course.
+     */
+    public function instructor()
+    {
+        return $this->belongsTo(User::class, 'instructor_id');
+    }
+
+    /**
+     * The lessons that belong to the course.
+     */
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
+
+    /**
+     * The users that are enrolled in the course.
+     */
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'enrollments');
+    }
 }
