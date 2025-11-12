@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Factories\HasFactory; // <-- السطر المضاف
 
 use Illuminate\Database\Eloquent\Model;
 

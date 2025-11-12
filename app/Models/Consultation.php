@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory; // <-- السطر المضاف
 
 // app/Models/Consultation.php
 class Consultation extends Model

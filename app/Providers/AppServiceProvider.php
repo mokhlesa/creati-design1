@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // يجب أن يكون هذا القسم فارغاً إلا إذا كنت تضيف خدمات معينة
     }
 
     /**
@@ -19,6 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // يجب أن يكون هذا القسم فارغاً إلا إذا كنت تستخدم Schemas أو غيره
     }
 }

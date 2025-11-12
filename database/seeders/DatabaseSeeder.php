@@ -2,24 +2,30 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // تأكد تماماً أن هذا هو الكود الوحيد الموجود في دالة run
+        // لا يجب أن يوجد هنا أي سطر يحتوي على User::factory()
+        // dd("تم تنفيذ هذا الملف بنجاح!"); // <--- السطر الجديد هنا
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
+            CategorySeeder::class,
+            CourseAndLessonSeeder::class,
+            PostSeeder::class,
+            EnrollmentAndProgressSeeder::class,
+            OrderSeeder::class,
+            StudentShowcaseSeeder::class,
+            ConsultationSeeder::class,
         ]);
     }
 }
