@@ -77,4 +77,31 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function studentShowcases()
+    {
+        return $this->hasMany(StudentShowcase::class);
+    }
+
+    /**
+     * Check if the user is an administrator.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        // Assuming 1 is the role_id for Admin
+        return $this->role_id === 1;
+    }
+
+    /**
+     * Check if the user is a teacher.
+     *
+     * @return bool
+     */
+    public function isTeacher()
+    {
+        // Assuming 2 is the role_id for Teacher
+        return $this->role_id === 2;
+    }
 }

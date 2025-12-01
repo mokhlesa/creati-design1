@@ -13,7 +13,9 @@ class Lesson extends Model
         'title',
         'slug',
         'content',
+        'lesson_type',
         'video_url',
+        'attachment_path',
         'order',
     ];
 
