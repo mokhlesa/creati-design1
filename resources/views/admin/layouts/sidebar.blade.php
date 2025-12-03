@@ -28,5 +28,14 @@
         <li class="nav-item mb-1">
             <a class="nav-link text-white" href="{{ route('admin.student-showcases.index') }}"><i class="fas fa-award me-2"></i> أعمال الطلاب</a>
         </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link text-white" href="{{ route('admin.portfolios.index') }}"><i class="fas fa-briefcase me-2"></i> معرض الأعمال</a>
+        </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link text-white" href="{{ route('admin.social-links.index') }}"><i class="fas fa-share-alt me-2"></i> روابط التواصل</a>
+        </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link text-white" href="{{ route('admin.settings.index') }}"><i class="fas fa-cog me-2"></i> الإعدادات</a>
+        </li>
     </ul>
 </div>

@@ -1,45 +1,41 @@
-@extends('student.layouts.app')
-
-@section('title', 'استشارة تصميم بالذكاء الاصطناعي')
+@extends('layouts.public')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0">استشارة تصميم بالذكاء الاصطناعي</h1>
-    </div>
+<div class="container text-center py-5" dir="rtl">
+    <img src="https://via.placeholder.com/150x50.png?text=Logo" alt="Logo" class="mb-4" style="max-width: 150px;">
+    <h1 class="mb-4">طلب استشارة تصميم جديدة</h1>
+    <p class="lead mb-5">ارفع تصميمك واحصل على رأي الخبير الفني باستخدام الذكاء الاصطناعي.</p>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            @if (session('success'))
-                <div class="alert alert-success mb-4">
-                    {{ session('success') }}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card text-start">
+                <div class="card-header">رفع تصميم جديد للاستشارة</div>
+                <div class="card-body">
+                    <form action="{{ route('student.consultation.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="image" class="form-label">ملف التصميم الخاص بك:</label>
+                            <input type="file" class="form-control" id="image" name="image" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prompt" class="form-label">طلبك من المحلل الذكي:</label>
+                            <select name="prompt_template" class="form-select mb-2">
+                                <option value="">اختر من الطلبات الجاهزة...</option>
+                                <option value="حلل لي خطوط التصميم واقترح الخطوط المناسبة مع التعليل.">حلل لي خطوط التصميم واقترح الخطوط المناسبة مع التعليل.</option>
+                                <option value="حلل لي تناسق الألوان في تصميمي واقترح تحسينات.">حلل لي تناسق الألوان في تصميمي واقترح تحسينات.</option>
+                                <option value="حلل لي التخطيط والتكوين العام للتصميم.">حلل لي التخطيط والتكوين العام للتصميم.</option>
+                                <option value="حدد لي أي أخطاء دمج أو عدم تناسق في تصميمي.">حدد لي أي أخطاء دمج أو عدم تناسق في تصميمي.</option>
+                                <option value="قيّم استخدام الظلال والإضاءة في تصميمي.">قيّم استخدام الظلال والإضاءة في تصميمي.</option>
+                            </select>
+                            <textarea class="form-control" id="prompt" name="prompt" rows="3" placeholder="... أو اكتب طلبك الخاص هنا"></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">احصل على الاستشارة</button>
+                        </div>
+                    </form>
                 </div>
-            @endif
-
-            <form action="{{ route('consultation.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                
-                <div class="mb-3">
-                    <label for="design_file" class="form-label">ملف التصميم</label>
-                    <input id="design_file" class="form-control" type="file" name="design_file" required autofocus accept="image/*,video/*,.pdf"/>
-                    @error('design_file')
-                        <div class="text-danger mt-2">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="design_concept" class="form-label">فكرة التصميم</label>
-                    <textarea id="design_concept" name="design_concept" rows="6" class="form-control" required>{{ old('design_concept') }}</textarea>
-                    @error('design_concept')
-                        <div class="text-danger mt-2">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="d-flex justify-content-end mt-4">
-                    <button type="submit" class="btn btn-primary">
-                        إرسال طلب الاستشارة
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+</div>
 @endsection

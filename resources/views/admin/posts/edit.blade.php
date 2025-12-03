@@ -18,14 +18,14 @@
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">المحتوى</label>
-                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="10" required>{{ old('content', $post->content) }}</textarea>
+                <textarea class="form-control tinymce-editor @error('content') is-invalid @enderror" id="content" name="content" rows="10" required>{{ old('content', $post->content) }}</textarea>
                 @error('content')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="category_id" class="form-label">التصنيف</label>
                     <select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
-                        <option value="">اختر تصنيفًا (اختياري)</option>
+                        <option value="">اختر تصنيفًا (اختيari)</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                         @endforeach

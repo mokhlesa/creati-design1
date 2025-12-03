@@ -15,8 +15,16 @@ class StudentController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        $enrollments = $user->enrollments()->with('course')->get();
-        return view('student.dashboard', compact('enrollments'));
+
+        // إحصائيات التقدم
+        $totalCompletedLessons = $user->courseProgress()->count();
+        $completedLast7Days = $user->courseProgress()
+                                   ->where('completed_at', '>=', now()->subDays(7))
+                                   ->count();
+
+        // يمكنك إضافة المزيد من الإحصائيات هنا (مثل متوسط الدروس اليومي)
+
+        return view('student.dashboard', compact('user', 'totalCompletedLessons', 'completedLast7Days'));
     }
 
     /**

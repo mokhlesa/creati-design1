@@ -83,6 +83,16 @@ class User extends Authenticatable
         return $this->hasMany(StudentShowcase::class);
     }
 
+    public function courseProgress()
+    {
+        return $this->hasMany(CourseProgress::class);
+    }
+
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class);
+    }
+
     /**
      * Check if the user is an administrator.
      *

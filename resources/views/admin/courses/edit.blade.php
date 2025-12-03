@@ -20,7 +20,7 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">الوصف</label>
-                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5" required>{{ old('description', $course->description) }}</textarea>
+                <textarea class="form-control tinymce-editor @error('description') is-invalid @enderror" id="description" name="description" rows="5" required>{{ old('description', $course->description) }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

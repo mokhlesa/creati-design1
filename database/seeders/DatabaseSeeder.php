@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             StudentShowcaseSeeder::class,
             ConsultationSeeder::class,
+            PortfolioSeeder::class,
+            SocialLinkSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }

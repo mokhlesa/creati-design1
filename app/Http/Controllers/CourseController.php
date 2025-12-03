@@ -17,12 +17,45 @@ return view('courses.index', compact('courses'));
 
 public function show(Course $course)
 {
-// استخدام slug للبحث عن الدورة
-// Route model binding يعتني بهذا تلقائياً
-$course->load(['instructor', 'lessons' => function ($query) {
-$query->orderBy('order', 'asc');
-}]);
-return view('courses.show', compact('course'));
+    $course->load(['instructor', 'lessons' => function ($query) {
+        $query->orderBy('order', 'asc');
+    }]);
+
+    $isEnrolled = false;
+    $progressPercentage = 0;
+    $completedLessons = [];
+    $nextLessonUrl = null;
+
+    if (Auth::check()) {
+        $user = Auth::user();
+        $isEnrolled = $user->enrollments()->where('course_id', $course->id)->exists();
+
+        if ($isEnrolled) {
+            $totalLessons = $course->lessons->count();
+            $completedLessonIds = $user->courseProgress()
+                                      ->whereIn('lesson_id', $course->lessons->pluck('id'))
+                                      ->pluck('lesson_id');
+            
+            $completedCount = $completedLessonIds->count();
+
+            if ($totalLessons > 0) {
+                $progressPercentage = ($completedCount / $totalLessons) * 100;
+            }
+            
+            $completedLessons = $completedLessonIds->toArray();
+
+            // Find the next lesson
+            $nextLesson = $course->lessons->first(function ($lesson) use ($completedLessons) {
+                return !in_array($lesson->id, $completedLessons);
+            });
+
+            if ($nextLesson) {
+                $nextLessonUrl = route('lessons.show', ['course' => $course->slug, 'lesson' => $nextLesson->slug]);
+            }
+        }
+    }
+
+    return view('courses.show', compact('course', 'isEnrolled', 'progressPercentage', 'completedLessons', 'nextLessonUrl'));
 }
 
 public function enroll(Request $request)

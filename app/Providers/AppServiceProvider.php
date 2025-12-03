@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
+use App\Models\SocialLink;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // يجب أن يكون هذا القسم فارغاً إلا إذا كنت تستخدم Schemas أو غيره
+        View::composer('layouts.public', function ($view) {
+            $view->with('socialLinks', SocialLink::all());
+            $view->with('settings', Setting::all()->keyBy('key'));
+        });
     }
 }

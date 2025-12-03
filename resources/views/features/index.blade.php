@@ -1,0 +1,8 @@
+@extends('layouts.public')
+
+@section('content')
+    <div class="container">
+        <h1>Features</h1>
+        <p>This is the features page.</p>
+    </div>
+@endsection

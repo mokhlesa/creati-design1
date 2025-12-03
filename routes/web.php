@@ -22,6 +22,8 @@ use App\Http\Controllers\ConsultationController;
 
 use App\Http\Controllers\StudentController;
 
+use App\Http\Controllers\PortfolioController;
+
 // =========================================================================
 // == المسارات العامة (بدون مصادقة)
 // =========================================================================
@@ -29,6 +31,10 @@ use App\Http\Controllers\StudentController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
+Route::get('/portfolio/{portfolio}', [PortfolioController::class, 'show'])->name('portfolio.show');
+
 
 // مسارات الدورات والدروس
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
@@ -51,6 +57,15 @@ Route::get('/community', function() {
 Route::get('/about', function() {
     return view('about.index');
 })->name('about.index');
+
+Route::get('/help', function() {
+    return view('help.index');
+})->name('help.index');
+
+Route::get('/features', function() {
+    return view('features.index');
+})->name('features.index');
+
 
 // =========================================================================
 // == مسارات لوحة التحكم الإدارية (Admin) - تحتاج مصادقة
@@ -80,6 +95,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     
     // مسارات إدارة أعمال الطلاب
     Route::resource('student-showcases', StudentShowcaseController::class);
+    Route::resource('portfolios', \App\Http\Controllers\Admin\PortfolioController::class);
+    Route::resource('social-links', \App\Http\Controllers\Admin\SocialLinkController::class);
+    Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+    Route::post('settings', [\App\Http\Controllers\Admin\SettingController::class, 'store'])->name('settings.store');
 });
 
 // =========================================================================
@@ -131,7 +150,7 @@ Route::middleware('auth')->group(function() {
 Route::prefix('student')->name('student.')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
     Route::get('/my-courses', [StudentController::class, 'myCourses'])->name('my-courses');
-    Route::get('/consultation', [ConsultationController::class, 'create'])->name('consultation.create');
+    Route::resource('consultation', \App\Http\Controllers\Student\ConsultationController::class);
     Route::resource('showcases', \App\Http\Controllers\Student\ShowcaseController::class);
 });
 

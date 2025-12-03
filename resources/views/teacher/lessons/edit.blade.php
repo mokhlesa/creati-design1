@@ -30,7 +30,7 @@
 
             <div id="content-field" class="mb-3">
                 <label for="content" class="form-label">محتوى الدرس</label>
-                <textarea class="form-control @error('content') is-invalid @enderror" id="tinymce" name="content" rows="10">{{ old('content', $lesson->content) }}</textarea>
+                <textarea class="form-control tinymce-editor @error('content') is-invalid @enderror" id="content" name="content" rows="10">{{ old('content', $lesson->content) }}</textarea>
                 @error('content')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -71,37 +71,4 @@
 </div>
 @endsection
 
-@push('scripts')
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
-        selector: '#tinymce',
-        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-        toolbar_mode: 'floating',
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const lessonType = document.getElementById('lesson_type');
-        const contentField = document.getElementById('content-field');
-        const videoUrlField = document.getElementById('video-url-field');
-        const attachmentField = document.getElementById('attachment-field');
-
-        function toggleFields() {
-            contentField.classList.add('d-none');
-            videoUrlField.classList.add('d-none');
-            attachmentField.classList.add('d-none');
-
-            if (lessonType.value === 'text') {
-                contentField.classList.remove('d-none');
-            } else if (lessonType.value === 'video') {
-                videoUrlField.classList.remove('d-none');
-            } else if (lessonType.value === 'pdf') {
-                attachmentField.classList.remove('d-none');
-            }
-        }
-
-        toggleFields();
-        lessonType.addEventListener('change', toggleFields);
-    });
-</script>
-@endpush
+<x-tinymce-editor />

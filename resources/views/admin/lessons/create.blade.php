@@ -19,7 +19,7 @@
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">محتوى الدرس</label>
-                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="7">{{ old('content') }}</textarea>
+                <textarea class="form-control tinymce-editor @error('content') is-invalid @enderror" id="content" name="content" rows="7">{{ old('content') }}</textarea>
                 @error('content')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
