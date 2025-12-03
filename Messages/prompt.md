@@ -31,5 +31,5 @@
         Log
         انا لدي
         
-GEMINI_API_KEY=AIzaSyC5AgjuayavQM4jbob8NA5sWim9yBAfAJI
+GEMINI_API_KEY=AIzaSXXXXXXXXXXXXX
 ضمن .env
