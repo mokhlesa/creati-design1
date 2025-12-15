@@ -7,7 +7,7 @@
             @foreach ($portfolios as $portfolio)
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ $portfolio->main_image }}" class="card-img-top" alt="{{ $portfolio->title }}">
+                        <img src="{{ Storage::url($portfolio->image_path) }}" class="card-img-top" alt="{{ $portfolio->title }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $portfolio->title }}</h5>
                             <p class="card-text">{{ $portfolio->description }}</p>

@@ -129,7 +129,7 @@
                     <div class="card-body px-0">
                       <h4 class="card-title pt-md-5">تقييم بالذكاء الاصطناعي</h4>
                       <p class="mb-0">احصل على تقييم فوري <br class="d-none d-lg-block"> لتصاميمك واقتراحات للتحسين <br class="d-none d-lg-block"> باستخدام أدواتنا المبتكرة <br class="d-none d-lg-block"> المدعومة بالذكاء الاصطناعي. </p>
-                      <div><a class="btn btn-lg ps-0 pe-3" href="{{ route('ai-assessor') }}" role="button">اعرف أكثر</a>
+                      <div><a class="btn btn-lg ps-0 pe-3" href="{{ auth()->check() ? route('student.consultation.create') : route('login') }}" role="button">اعرف أكثر</a>
                         <svg class="bi bi-arrow-right" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#9C69E2" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"></path>
                         </svg>

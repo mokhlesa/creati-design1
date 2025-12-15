@@ -35,7 +35,7 @@
             <a class="nav-link text-white" href="{{ route('admin.social-links.index') }}"><i class="fas fa-share-alt me-2"></i> روابط التواصل</a>
         </li>
         <li class="nav-item mb-1">
-            <a class="nav-link text-white" href="{{ route('admin.settings.index') }}"><i class="fas fa-cog me-2"></i> الإعدادات</a>
+            <a class="nav-link text-white" href="{{ route('admin.teacher-requests.index') }}"><i class="fas fa-user-check me-2"></i> طلبات المعلمين الجدد</a>
         </li>
     </ul>
 </div>

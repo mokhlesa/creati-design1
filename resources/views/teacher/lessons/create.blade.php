@@ -29,7 +29,7 @@
 
             <div id="content-field" class="mb-3">
                 <label for="content" class="form-label">محتوى الدرس</label>
-                <textarea class="form-control tinymce-editor @error('content') is-invalid @enderror" id="content" name="content" rows="10">{{ old('content') }}</textarea>
+                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="10">{{ old('content') }}</textarea>
                 @error('content')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -65,4 +65,38 @@
 </div>
 @endsection
 
-<x-tinymce-editor />
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const lessonTypeSelect = document.getElementById('lesson_type');
+        const contentField = document.getElementById('content-field');
+        const videoUrlField = document.getElementById('video-url-field');
+        const attachmentField = document.getElementById('attachment-field');
+
+        function toggleFields() {
+            const selectedType = lessonTypeSelect.value;
+
+            // Reset all fields first
+            contentField.classList.add('d-none');
+            videoUrlField.classList.add('d-none');
+            attachmentField.classList.add('d-none');
+
+            // Show the relevant field
+            if (selectedType === 'text') {
+                contentField.classList.remove('d-none');
+            } else if (selectedType === 'video') {
+                videoUrlField.classList.remove('d-none');
+            } else if (selectedType === 'pdf') {
+                attachmentField.classList.remove('d-none');
+            }
+        }
+
+        // Initial state on page load
+        toggleFields();
+
+        // Update fields when selection changes
+        lessonTypeSelect.addEventListener('change', toggleFields);
+    });
+</script>
+@endpush
+

@@ -28,22 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
         
-        // =========================================================================
-        // ==  منطق إعادة التوجيه المخصص بناءً على الدور  ==========================
-        // =========================================================================
-        $roleId = Auth::user()->role_id;
-
-        if ($roleId === 1) { // 1: المدير (Admin)
-            return redirect()->intended(route('admin.dashboard', absolute: false));
-        }
-
-        // يمكن إضافة شروط أخرى هنا
-        // if ($roleId === 2) { // 2: المعلم (Instructor)
-        //     return redirect()->intended(route('instructor.dashboard', absolute: false));
-        // }
-        
-        // الافتراضي (3: الطالب) أو أي مستخدم آخر
-        return redirect()->intended(route('courses.index', absolute: false)); 
+        return redirect()->intended(route('dashboard', absolute: false)); 
     }
     
     /**

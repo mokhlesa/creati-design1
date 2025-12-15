@@ -36,4 +36,13 @@ return [
     'Delete' => 'حذف',
     'Are you sure?' => 'هل أنت متأكد؟',
     "You haven't created any showcases yet." => 'لم تقم بإنشاء أي معارض بعد.',
+
+    // Social Links Translations
+    'Social Links' => 'روابط التواصل الاجتماعي',
+    'Add New Social Link' => 'إضافة رابط تواصل اجتماعي جديد',
+    'Name' => 'الاسم',
+    'URL' => 'الرابط',
+    'Actions' => 'الإجراءات',
+    'Edit' => 'تعديل',
+    'Delete' => 'حذف',
 ];

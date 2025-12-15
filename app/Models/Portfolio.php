@@ -12,8 +12,17 @@ class Portfolio extends Model
     protected $fillable = [
         'title',
         'description',
-        'main_image',
+        'image_path', // Changed from main_image
+        'url',
+        'user_id', 
+        'slug'
     ];
+
+    // Define the relationship to the User model
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function media()
     {

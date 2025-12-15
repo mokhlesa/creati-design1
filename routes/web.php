@@ -97,6 +97,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('student-showcases', StudentShowcaseController::class);
     Route::resource('portfolios', \App\Http\Controllers\Admin\PortfolioController::class);
     Route::resource('social-links', \App\Http\Controllers\Admin\SocialLinkController::class);
+    Route::resource('teacher-requests', \App\Http\Controllers\Admin\TeacherRequestController::class);
     Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [\App\Http\Controllers\Admin\SettingController::class, 'store'])->name('settings.store');
 });
@@ -152,6 +153,8 @@ Route::prefix('student')->name('student.')->middleware(['auth'])->group(function
     Route::get('/my-courses', [StudentController::class, 'myCourses'])->name('my-courses');
     Route::resource('consultation', \App\Http\Controllers\Student\ConsultationController::class);
     Route::resource('showcases', \App\Http\Controllers\Student\ShowcaseController::class);
+    Route::get('/teacher-request/create', [\App\Http\Controllers\Student\TeacherRequestController::class, 'create'])->name('teacher.request.create');
+    Route::post('/teacher-request', [\App\Http\Controllers\Student\TeacherRequestController::class, 'store'])->name('teacher.request.store');
 });
 
 

@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('main_image'); // URL to the main image
+            $table->string('image_path')->nullable(); // Use image_path instead of main_image
+            $table->string('url')->nullable();
+            $table->string('slug')->unique();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

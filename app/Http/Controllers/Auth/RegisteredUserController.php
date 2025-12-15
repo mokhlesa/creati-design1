@@ -60,7 +60,6 @@ class RegisteredUserController extends Controller
 
         // هنا يجب تغيير مسار إعادة التوجيه الافتراضي لـ Breeze 
         // إلى المسار الصحيح للمستخدم بعد تسجيل الدخول (مثلاً: /profile أو /courses)
-        // لنستخدم مسار لوحة التحكم الخاصة بالمستخدم العادي (الطالب) كمثال
-        return redirect()->intended(route('courses.index', absolute: false));
+        return redirect()->intended(route('dashboard', absolute: false));
     }
 }

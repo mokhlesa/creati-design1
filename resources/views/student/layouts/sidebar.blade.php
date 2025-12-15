@@ -13,6 +13,9 @@
         <li class="nav-item mb-1">
             <a class="nav-link text-white" href="{{ route('student.consultation.create') }}"><i class="fas fa-comments me-2"></i> استشارة تصميم AI</a>
         </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link text-white" href="{{ route('student.teacher.request.create') }}"><i class="fas fa-chalkboard-teacher me-2"></i> تقديم طلب معلم</a>
+        </li>
         {{-- Add other student-specific links here --}}
     </ul>
 </div>
