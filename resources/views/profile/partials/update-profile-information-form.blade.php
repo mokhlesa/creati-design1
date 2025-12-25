@@ -8,9 +8,17 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-4">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-4" enctype="multipart/form-data">
         @csrf
         @method('patch')
+
+        <div class="mb-3">
+            <label for="profile_image" class="form-label">{{ __('الصورة الشخصية') }}</label>
+            <input id="profile_image" name="profile_image" type="file" class="form-control @error('profile_image') is-invalid @enderror" accept="image/*">
+            @error('profile_image')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="mb-3">
             <label for="name" class="form-label">{{ __('الاسم') }}</label>

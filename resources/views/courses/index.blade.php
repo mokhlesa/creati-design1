@@ -1,60 +1,58 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="bg-gray-50 py-12" style="margin-top: 5rem;">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="py-5" style="margin-top: 5rem;">
+    <div class="container">
         
         <!-- Page Header -->
-        <div class="max-w-3xl mx-auto text-center pb-12">
-            <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold text-dark">
                 جميع الدورات
             </h1>
-            <p class="mt-4 text-xl text-gray-600">
+            <p class="lead text-muted mt-3">
                 تصفح مجموعتنا الكاملة من الدورات المصممة لمساعدتك على إتقان فن التصميم الجرافيكي.
             </p>
         </div>
 
         <!-- Courses Grid -->
-        <div class="grid gap-8 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @forelse ($courses as $course)
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform transform hover:-translate-y-2">
-                    <a href="{{ route('courses.show', $course->slug) }}">
-                        <img class="h-56 w-full object-cover" src="{{ $course->image ? Storage::url($course->image) : 'https://via.placeholder.com/400x225/E0E7FF/4F46E5?text=' . urlencode($course->title) }}" alt="{{ $course->title }}">
-                    </a>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                            <a href="{{ route('courses.show', $course->slug) }}" class="hover:text-indigo-700 transition-colors">
-                                {{ $course->title }}
-                            </a>
-                        </h3>
-                        <p class="text-gray-700 leading-relaxed mb-4">
-                            {{ Str::limit($course->description, 120) }}
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <a href="{{ route('courses.show', $course->slug) }}" class="text-indigo-600 hover:text-indigo-800 font-semibold text-lg">
-                                عرض التفاصيل
-                                <span aria-hidden="true">&rarr;</span>
-                            </a>
-                            <span class="text-gray-500 text-sm">
-                                {{ $course->instructor->first_name ?? '' }}
-                            </span>
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden transition-hover">
+                        <a href="{{ route('courses.show', $course->slug) }}">
+                            <img class="card-img-top" 
+                                 style="height: 220px; object-fit: cover;" 
+                                 src="{{ $course->image ? Storage::url($course->image) : asset('theme/assets/img/logo.png') }}" 
+                                 alt="{{ $course->title }}">
+                        </a>
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-bold mb-3">
+                                <a href="{{ route('courses.show', $course->slug) }}" class="text-dark text-decoration-none hover-primary">
+                                    {{ $course->title }}
+                                </a>
+                            </h5>
+                            <p class="card-text text-muted mb-4 flex-grow-1">
+                                {{ Str::limit($course->description, 120) }}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <a href="{{ route('courses.show', $course->slug) }}" class="fw-bold text-decoration-none text-primary">
+                                    عرض التفاصيل
+                                    <i class="fas fa-arrow-left ms-1"></i>
+                                </a>
+                                <span class="text-muted small">
+                                    <i class="fas fa-user-tie me-1"></i>
+                                    {{ $course->instructor->first_name ?? '' }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             @empty
-                <div class="col-span-full">
-                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.21 3.03-1.742 3.03H4.42c-1.532 0-2.492-1.696-1.742-3.03l5.58-9.92zM10 13a1 1 0 110-2 1 1 0 010 2zm-1-8a1 1 0 00-1 1v3a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm text-yellow-700">
-                                    لا توجد دورات متاحة حالياً.
-                                </p>
-                            </div>
+                <div class="col-12">
+                    <div class="alert alert-warning d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>
+                            لا توجد دورات متاحة حالياً.
                         </div>
                     </div>
                 </div>
@@ -62,10 +60,27 @@
         </div>
 
         <!-- Pagination -->
-        <div class="mt-12">
+        <div class="mt-5 d-flex justify-content-center">
             {{ $courses->links() }}
         </div>
 
     </div>
 </div>
+
+<style>
+    .transition-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .transition-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+    .hover-primary:hover {
+        color: #0d6efd !important; /* Bootstrap primary color or your theme color */
+    }
+</style>
 @endsection
+
+@push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+@endpush

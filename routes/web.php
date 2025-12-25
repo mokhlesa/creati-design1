@@ -68,6 +68,11 @@ Route::get('/features', function() {
     return view('features.index');
 })->name('features.index');
 
+Route::get('/contact', function() {
+    return view('contact.index');
+})->name('contact.index');
+
+
 
 // =========================================================================
 // == مسارات لوحة التحكم الإدارية (Admin) - تحتاج مصادقة
