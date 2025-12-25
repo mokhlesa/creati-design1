@@ -8,13 +8,25 @@
         <h5 class="mb-0">نموذج تعديل الدورة: {{ $course->title }}</h5>
     </div>
     <div class="card-body">
-        <form action="{{ route('admin.courses.update', $course->id) }}" method="POST">
+        <form action="{{ route('admin.courses.update', $course->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
                 <label for="title" class="form-label">عنوان الدورة</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $course->title) }}" required>
                 @error('title')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">صورة الدورة</label>
+                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
+                @if($course->image)
+                    <div class="mt-2">
+                        <img src="{{ asset('storage/' . $course->image) }}" alt="صورة الدورة الحالية" style="max-width: 200px; height: auto;">
+                    </div>
+                @endif
+                @error('image')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

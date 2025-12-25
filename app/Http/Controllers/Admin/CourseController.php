@@ -27,18 +27,25 @@ public function store(Request $request)
 $request->validate([
 'title' => 'required|string|max:255',
 'description' => 'required|string',
+'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
 'instructor_id' => 'required|exists:users,id',
 'price' => 'required|numeric|min:0',
 ]);
 
-Course::create([
+$data = [
 'title' => $request->title,
 'slug' => Str::slug($request->title),
 'description' => $request->description,
 'instructor_id' => $request->instructor_id,
 'price' => $request->price,
 'published_at' => now(),
-]);
+];
+
+if ($request->hasFile('image')) {
+    $data['image'] = $request->file('image')->store('courses', 'public');
+}
+
+Course::create($data);
 
 return redirect()->route('admin.courses.index')->with('success', 'تم إنشاء الدورة بنجاح.');
 }
@@ -61,17 +68,24 @@ public function update(Request $request, Course $course)
 $request->validate([
 'title' => 'required|string|max:255',
 'description' => 'required|string',
+'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
 'instructor_id' => 'required|exists:users,id',
 'price' => 'required|numeric|min:0',
 ]);
 
-$course->update([
+$data = [
 'title' => $request->title,
 'slug' => Str::slug($request->title),
 'description' => $request->description,
 'instructor_id' => $request->instructor_id,
 'price' => $request->price,
-]);
+];
+
+if ($request->hasFile('image')) {
+    $data['image'] = $request->file('image')->store('courses', 'public');
+}
+
+$course->update($data);
 
 return redirect()->route('admin.courses.index')->with('success', 'تم تحديث الدورة بنجاح.');
 }

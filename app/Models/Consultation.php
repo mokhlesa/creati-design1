@@ -10,6 +10,6 @@ class Consultation extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id', 'image_url', 'status', 'prompt', 'feedback'];
-    public function feedback() { return $this->hasOne(AiFeedback::class); }
+    public function aiFeedback() { return $this->hasOne(AiFeedback::class); }
     public function user() { return $this->belongsTo(User::class); }
 }

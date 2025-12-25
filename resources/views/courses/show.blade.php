@@ -62,7 +62,7 @@
 
             <div class="col-lg-4">
                 <div class="card shadow-sm position-sticky" style="top: 8rem;">
-                    <img src="{{ $course->thumbnail_url ?? 'https://via.placeholder.com/800x600.png/007bff/ffffff?text=Course+Image' }}" class="card-img-top" alt="{{ $course->title }}">
+                    <img src="{{ $course->image ? Storage::url($course->image) : 'https://via.placeholder.com/800x600.png/007bff/ffffff?text=Course+Image' }}" class="card-img-top" alt="{{ $course->title }}">
                     <div class="card-body text-center">
                         @if(!$isEnrolled)
                         <h3 class="card-title fw-bold">

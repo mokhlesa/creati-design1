@@ -21,7 +21,15 @@
                     <p class="card-text">{{ $consultation->prompt }}</p>
                     <hr>
                     <h5 class="card-title">رأي الخبير:</h5>
-                    <p class="card-text">{{ $consultation->feedback }}</p>
+                    <p class="card-text">
+                        @php
+                            $converter = new \League\CommonMark\CommonMarkConverter([
+                                'html_input' => 'strip',
+                                'allow_unsafe_links' => false,
+                            ]);
+                            echo $converter->convert($consultation->feedback ?? '');
+                        @endphp
+                    </p>
                     <p class="card-text"><small class="text-muted">تم الطلب {{ $consultation->created_at->diffForHumans() }}</small></p>
                     <form action="{{ route('student.consultation.destroy', $consultation) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من رغبتك في حذف هذه الاستشارة؟');">
                         @csrf

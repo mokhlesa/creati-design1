@@ -1,35 +1,6 @@
-عند تعليق الجزء
+قم بتعديل تصميم هذه الصفحة
+ http://127.0.0.1:8000/feature
+ واجعل عناصرها ونصوصها باللغة العربية
+ وقم بتعديل تصميمها لتصبح مثل هذه الصفحة بالشكل:
+ shttp://127.0.0.1:8000/help
 
-        try {
-            // 5. Prepare image for the API
-            $imagePath = Storage::disk('public')->path($path);
-            $imageMimeType = File::mimeType($imagePath);
-            $imageData = File::get($imagePath);
-
-            // 6. Call Gemini API
-            $result = Gemini::geminiProVision()
-                ->withPrompt($prompt)
-                ->withImage($imageData, $imageMimeType)
-                ->generate();
-
-            $feedback = $result->text();
-
-        } catch (\Exception $e) {
-            Log::error('Gemini API Error: ' . $e->getMessage());
-            
-            // 7. Clean up stored image on failure
-            Storage::disk('public')->delete($path);
-
-            return back()->with('error', 'Failed to get feedback from the AI. Please try again later.');
-        }
-
-        وكتابة 
-        جملة ضمن
-        $feedback = '';
-        نجح الامر ولكن عند ادخالها يفشل ويحدث الصفحة
-        ابحث    ضمن
-        Log
-        انا لدي
-        
-GEMINI_API_KEY=AIzaSXXXXXXXXXXXXX
-ضمن .env

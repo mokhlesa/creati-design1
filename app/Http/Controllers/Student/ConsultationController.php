@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Gemini\Laravel\Facades\Gemini;
 use Gemini\Data\Blob;
 use Gemini\Enums\MimeType;
+use Illuminate\Support\Facades\Http;
 
 class ConsultationController extends Controller
 {
@@ -35,9 +36,6 @@ class ConsultationController extends Controller
         return view('student.consultation.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -57,18 +55,49 @@ class ConsultationController extends Controller
             if (empty($userPrompt) && $request->input('prompt_template')) {
                 $userPrompt = $request->input('prompt_template');
             }
-            $userPrompt = $userPrompt ?? 'Analyze this design and provide constructive feedback.';
+            $userPrompt = $userPrompt ?? 'قم بتحليل هذا التصميم وقدم ملاحظات بناءة.';
             
-            // 3. Call Gemini API
-            $result = Gemini::generativeModel('gemini-1.5-flash')->generateContent([
-                $userPrompt,
-                new Blob(
-                    mimeType: MimeType::from($mimeType),
-                    data: $imageData
-                )
+            // 3. Call Vertex AI API directly
+            $apiKey = env('GOOGLE_API_KEY');
+            // Use the Vertex AI endpoint as requested/tested
+            $url = "https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash-lite:generateContent?key={$apiKey}";
+
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+            ])->post($url, [
+                'contents' => [
+                    [
+                        'role' => 'user',
+                        'parts' => [
+                            ['text' => $userPrompt],
+                            [
+                                'inlineData' => [
+                                    'mimeType' => $mimeType,
+                                    'data' => $imageData
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
             ]);
 
-            $feedback = $result->text();
+            $result = $response->json();
+            Log::info('Vertex AI Response: ', ['result' => $result]);
+
+            $feedback = '';
+            if (isset($result['candidates'][0]['content']['parts'][0]['text'])) {
+                $feedback = $result['candidates'][0]['content']['parts'][0]['text'];
+            }
+
+            if (empty(trim($feedback))) {
+                // Fallback check for errors in response
+                if (isset($result['error'])) {
+                     $feedback = 'خطأ من الذكاء الاصطناعي: ' . ($result['error']['message'] ?? 'غير معروف');
+                } else {
+                    $feedback = 'لم يتمكن الذكاء الاصطناعي من تقديم تحليل للصورة. يرجى المحاولة مرة أخرى.';
+                }
+                Log::warning('Vertex AI returned empty feedback.', ['result' => $result]);
+            }
 
             // 4. Save to Database
             Consultation::create([
@@ -83,9 +112,8 @@ class ConsultationController extends Controller
                 ->with('success', 'تم استلام استشارتك وتحليلها بنجاح!');
 
         } catch (\Exception $e) {
-            Log::error('Gemini Consultation Error: ' . $e->getMessage());
+            Log::error('Vertex AI Consultation Error: ' . $e->getMessage());
             
-            // Cleanup uploaded file if API fails (optional but good practice)
             if (isset($path) && Storage::disk('public')->exists($path)) {
                 Storage::disk('public')->delete($path);
             }

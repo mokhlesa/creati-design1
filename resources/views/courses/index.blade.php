@@ -14,46 +14,62 @@
             </p>
         </div>
 
-        <!-- Courses Grid -->
-        <div class="grid gap-8 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+        <!-- Courses List -->
+        <div class="max-w-4xl mx-auto space-y-4">
             @forelse ($courses as $course)
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform transform hover:-translate-y-2">
-                    <a href="{{ route('courses.show', $course->slug) }}">
-                        <img class="h-56 w-full object-cover" src="{{ $course->thumbnail_url ? Storage::url($course->thumbnail_url) : 'https://via.placeholder.com/400x225/E0E7FF/4F46E5?text=' . urlencode($course->title) }}" alt="{{ $course->title }}">
-                    </a>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                            <a href="{{ route('courses.show', $course->slug) }}" class="hover:text-indigo-700 transition-colors">
-                                {{ $course->title }}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow duration-300">
+                    <div class="flex flex-row items-center gap-6">
+                        <!-- Small Image -->
+                        <div class="w-32 h-24 sm:w-40 sm:h-28 flex-shrink-0 overflow-hidden rounded-lg shadow-sm">
+                            <a href="{{ route('courses.show', $course->slug) }}">
+                                <img 
+                                    class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" 
+                                    src="{{ $course->image ? Storage::url($course->image) : 'https://via.placeholder.com/400x300/E0E7FF/4F46E5?text=' . urlencode($course->title) }}" 
+                                    alt="{{ $course->title }}"
+                                >
                             </a>
-                        </h3>
-                        <p class="text-gray-700 leading-relaxed mb-4">
-                            {{ Str::limit($course->description, 120) }}
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <a href="{{ route('courses.show', $course->slug) }}" class="text-indigo-600 hover:text-indigo-800 font-semibold text-lg">
-                                عرض التفاصيل
-                                <span aria-hidden="true">&rarr;</span>
-                            </a>
+                        </div>
+
+                        <!-- Content Next to Image -->
+                        <div class="flex-grow">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                                <h3 class="text-xl font-bold text-gray-900">
+                                    <a href="{{ route('courses.show', $course->slug) }}" class="hover:text-indigo-600 transition-colors">
+                                        {{ $course->title }}
+                                    </a>
+                                </h3>
+                                <div class="text-lg font-bold text-indigo-600">
+                                    {{ $course->price > 0 ? $course->price . ' $' : 'مجاناً' }}
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-1 hidden sm:block">
+                                {{ Str::limit($course->description, 120) }}
+                            </p>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-4 text-xs text-gray-500">
+                                    <span class="flex items-center">
+                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                        {{ $course->instructor->first_name ?? 'المعلم' }}
+                                    </span>
+                                    <span class="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-medium">
+                                        {{ $course->category->name ?? 'دورة' }}
+                                    </span>
+                                </div>
+                                <a href="{{ route('courses.show', $course->slug) }}" class="text-indigo-600 hover:text-indigo-800 text-sm font-semibold flex items-center group">
+                                    عرض التفاصيل
+                                    <svg class="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             @empty
-                <div class="col-span-full">
-                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.21 3.03-1.742 3.03H4.42c-1.532 0-2.492-1.696-1.742-3.03l5.58-9.92zM10 13a1 1 0 110-2 1 1 0 010 2zm-1-8a1 1 0 00-1 1v3a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm text-yellow-700">
-                                    لا توجد دورات متاحة حالياً.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100">
+                    <p class="text-gray-500">لا توجد دورات متاحة حالياً.</p>
                 </div>
             @endforelse
         </div>

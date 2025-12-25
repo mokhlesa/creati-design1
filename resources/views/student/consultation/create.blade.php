@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container text-center py-5" dir="rtl">
-    <img src="https://via.placeholder.com/150x50.png?text=Logo" alt="Logo" class="mb-4" style="max-width: 150px;">
+    <img src="{{ asset('theme/assets/img/icons/logoo.png') }}" alt="Logo" class="mb-4" style="max-width: 150px;">
     <h1 class="mb-4">طلب استشارة تصميم جديدة</h1>
     <p class="lead mb-5">ارفع تصميمك واحصل على رأي الخبير الفني باستخدام الذكاء الاصطناعي.</p>
 
@@ -11,6 +11,25 @@
             <div class="card text-start">
                 <div class="card-header">رفع تصميم جديد للاستشارة</div>
                 <div class="card-body">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form action="{{ route('student.consultation.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">

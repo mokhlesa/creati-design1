@@ -13,6 +13,7 @@ class Course extends Model
         'title',
         'slug',
         'description',
+        'image',
         'instructor_id',
         'price',
         'published_at',

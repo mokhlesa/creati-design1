@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HelpController;
+
 use Illuminate\Support\Facades\Route;
 
 // المتحكمات الإدارية
@@ -58,9 +60,9 @@ Route::get('/about', function() {
     return view('about.index');
 })->name('about.index');
 
-Route::get('/help', function() {
-    return view('help.index');
-})->name('help.index');
+// مسار صفحة المساعدة
+Route::get('/help', [HelpController::class, 'index'])->name('help.index');
+Route::get('/help/search', [HelpController::class, 'search'])->name('help.search');
 
 Route::get('/features', function() {
     return view('features.index');

@@ -16,12 +16,8 @@
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('theme/assets/img/favicons/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('theme/assets/img/favicons/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('theme/assets/img/favicons/favicon-16x16.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('theme/assets/img/favicons/favicon.ico') }}">
-    <link rel="manifest" href="{{ asset('theme/assets/img/favicons/manifest.json') }}">
-    <meta name="msapplication-TileImage" content="{{ asset('theme/assets/img/favicons/mstile-150x150.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('theme/assets/img/favicons/project-logo.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('theme/assets/img/favicons/project-logo.png') }}">
     <meta name="theme-color" content="#ffffff">
 
 
@@ -40,7 +36,7 @@
     <!-- ===============================================-->
     <main class="main pt-8" id="top">
       <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand" href="/"><img class="img-fluid" src="{{ asset('theme/assets/img/icons/logo.png') }}" alt="" /></a>
+        <div class="container"><a class="navbar-brand" href="/"><img class="img-fluid" src="{{ asset('theme/assets/img/icons/logoo.png') }}" alt="" style="height: 100px; width: auto;" /></a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto ms-lg-4 ms-xl-7 border-bottom border-lg-bottom-0 pt-2 pt-lg-0">
@@ -108,7 +104,7 @@
                 </svg></a></div>
           </div>
           <div class="row justify-content-lg-around">
-            <div class="col-12 col-sm-12 col-lg-3 mb-4 order-0 order-sm-0"><a class="text-decoration-none" href="#"><img class="img-fluid me-3" src="{{ asset('theme/assets/img/icons/logo.png') }}" alt="" /><span class="fw-bold fs-1 text-1000">منصة التصميم</span></a>
+            <div class="col-12 col-sm-12 col-lg-3 mb-4 order-0 order-sm-0"><a class="text-decoration-none" href="#"><img class="img-fluid me-3" src="{{ asset('theme/assets/img/icons/logoo.png') }}" alt="" style="height: 100px; width: auto;" /><span class="fw-bold fs-1 text-1000">منصة التصميم</span></a>
               <p class="mt-4">{!! $settings['contact_address']->value ?? '' !!}</p>
               <p>{{ $settings['contact_email']->value ?? '' }}<br />{{ $settings['contact_phone']->value ?? '' }}</p>
             </div>
@@ -126,7 +122,7 @@
               <h6 class="lh-lg fw-bold mb-4">التواصل الاجتماعي </h6>
               <ul class="list-unstyled mb-md-4 mb-lg-0">
                 @foreach ($socialLinks as $link)
-                <li class="list-inline-item"><a class="text-dark fs--1 text-decoration-none" href="{{ $link->url }}" target="_blank"><img class="img-fluid" src="{{ asset($link->icon) }}" width="40" alt="{{ $link->name }}" /></a></li>
+                <li class="list-inline-item"><a class="text-dark fs--1 text-decoration-none" href="{{ $link->url }}" target="_blank"><img class="img-fluid" src="{{ asset($link->icon) }}" width="40" alt="{{ $link->name }}" style="filter: brightness(0);" /></a></li>
                 @endforeach
               </ul>
             </div>
